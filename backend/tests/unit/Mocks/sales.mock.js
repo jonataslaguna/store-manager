@@ -27,7 +27,25 @@ const saleId = [
   },
 ];
 
+const salesFromServiceSuccessful = {
+  status: 'SUCCESSFUL',
+  data: salesFromDBAndSalesFromModel,
+};
+
+const saleFromServiceSuccessful = {
+  status: 'SUCCESSFUL',
+  data: saleId,
+};
+
+const saleFromServiceNotFound = { 
+  status: 'NOT_FOUND', 
+  data: { message: 'Sale not found' }, 
+};
+
 module.exports = {
   salesFromDBAndSalesFromModel,
   saleId,
+  salesFromServiceSuccessful,
+  saleFromServiceSuccessful,
+  saleFromServiceNotFound,
 };
