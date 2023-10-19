@@ -7,6 +7,7 @@ const {
   productsFromDB,
   productId,
   productIdFromModel,
+  insertIdFromModelAndFromDB,
 } = require('../Mocks/product.mock');
 
 describe('PRODUCT MODEL:', function () {
@@ -40,5 +41,14 @@ describe('PRODUCT MODEL:', function () {
     const product = await productModel.findById(nonExistentId);
   
     expect(product).to.be.an('undefined'); 
+  });
+
+  it('Test function insert', async function () {
+    sinon.stub(connection, 'execute').resolves([insertIdFromModelAndFromDB]);
+
+    const products = await productModel.insert(insertIdFromModelAndFromDB.insertId);
+
+    expect(products).to.be.an('number');
+    expect(products).to.be.deep.equal(insertIdFromModelAndFromDB.insertId);
   });
 });

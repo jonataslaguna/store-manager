@@ -50,7 +50,12 @@ const productFromServiceSuccessful = {
 
 const productFromServiceNotFound = { 
   status: 'NOT_FOUND', 
-  data: { message: 'Product not found' } };
+  data: { message: 'Product not found' }, 
+};
+
+const insertIdFromModelAndFromDB = {
+  insertId: 4,
+};
   
 module.exports = {
   productsFromModel,
@@ -60,4 +65,5 @@ module.exports = {
   productsFromServiceSuccessful,
   productFromServiceSuccessful,
   productFromServiceNotFound,
+  insertIdFromModelAndFromDB,
 };
