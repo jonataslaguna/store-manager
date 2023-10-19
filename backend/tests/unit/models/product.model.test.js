@@ -14,7 +14,7 @@ describe('PRODUCT MODEL', function () {
     sinon.restore();
   });
   
-  it('Test findAll', async function () {
+  it('Test function findAll', async function () {
     sinon.stub(connection, 'execute').resolves([productsFromDB]);
 
     const products = await productModel.findAll();
@@ -24,7 +24,7 @@ describe('PRODUCT MODEL', function () {
     expect(products).to.be.deep.equal(productsFromModel);
   });
 
-  it('Test findById', async function () {
+  it('Test function finById', async function () {
     sinon.stub(connection, 'execute').resolves([[productId]]);
 
     const inputValue = 2;
@@ -33,7 +33,7 @@ describe('PRODUCT MODEL', function () {
     expect(products).to.be.an('object');
     expect(products).to.be.deep.equal(productIdFromModel);
   });
-  it('Test findById with non-existent ID', async function () {
+  it('Does not recover driver with non-existent id', async function () {
     const nonExistentId = 5; 
     sinon.stub(connection, 'execute').resolves([[]]); 
   
