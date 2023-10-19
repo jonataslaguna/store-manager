@@ -13,6 +13,9 @@ const {
   productFromServiceSuccessful,
   productId,
   productFromServiceNotFound,
+  productsInsertFromServiceSuccessful,
+  productCreated,
+  productsInsertFromServiceInvalidValue,
 } = require('../Mocks/product.mock');
 
 describe('PRODUCT CONTROLLER:', function () {
@@ -62,5 +65,39 @@ describe('PRODUCT CONTROLLER:', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(productFromServiceNotFound.data);
+  });
+
+  it('Test function insert', async function () {
+    sinon.stub(productService, 'insert').resolves(productsInsertFromServiceSuccessful);
+
+    const inputValue = { name: 'Playstation 5' };
+
+    const req = { params: { }, body: inputValue };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.insert(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(productCreated);
+  });
+
+  it('Test whether it does not add if the data is incorrect', async function () {
+    sinon.stub(productService, 'insert').resolves(productsInsertFromServiceInvalidValue);
+
+    const inputValue = { name: 'P' };
+
+    const req = { params: { }, body: inputValue };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.insert(req, res);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith(productsInsertFromServiceInvalidValue.data);
   });
 });

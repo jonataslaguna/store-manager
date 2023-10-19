@@ -61,6 +61,16 @@ const productCreated = {
   id: 4,
   name: 'Playstation 5',
 };
+
+const productsInsertFromServiceSuccessful = {
+  status: 'CREATED',
+  data: productCreated,
+};
+
+const productsInsertFromServiceInvalidValue = {
+  status: 'INVALID_VALUE',
+  data: { message: '"name" length must be at least 3 characters long' },
+};
   
 module.exports = {
   productsFromModel,
@@ -72,4 +82,6 @@ module.exports = {
   productFromServiceNotFound,
   insertIdFromModelAndFromDB,
   productCreated,
+  productsInsertFromServiceSuccessful,
+  productsInsertFromServiceInvalidValue,
 };
