@@ -42,6 +42,15 @@ const productsFromServiceSuccessful = {
   status: 'SUCCESSFUL',
   data: productsFromModel,
 };
+
+const productFromServiceSuccessful = {
+  status: 'SUCCESSFUL',
+  data: productId,
+};
+
+const productFromServiceNotFound = { 
+  status: 'NOT_FOUND', 
+  data: { message: 'Product not found' } };
   
 module.exports = {
   productsFromModel,
@@ -49,4 +58,6 @@ module.exports = {
   productId,
   productIdFromModel,
   productsFromServiceSuccessful,
+  productFromServiceSuccessful,
+  productFromServiceNotFound,
 };

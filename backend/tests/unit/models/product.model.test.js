@@ -33,7 +33,7 @@ describe('PRODUCT MODEL', function () {
     expect(products).to.be.an('object');
     expect(products).to.be.deep.equal(productIdFromModel);
   });
-  it('Does not recover driver with non-existent id', async function () {
+  it('Does not recover product with non-existent id', async function () {
     const nonExistentId = 5; 
     sinon.stub(connection, 'execute').resolves([[]]); 
   

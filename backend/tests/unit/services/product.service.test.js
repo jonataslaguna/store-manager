@@ -29,7 +29,7 @@ describe('PRODUCT SERVICE', function () {
     expect(responseService.data).to.deep.equal(productId);
   });
 
-  it('Does not recover driver with non-existent id', async function () {
+  it('Does not recover product with non-existent id', async function () {
     sinon.stub(productModel, 'findById').resolves(undefined);
 
     const inputValue = 999;
