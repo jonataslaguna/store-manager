@@ -1,10 +1,8 @@
-const snakeize = require('snakeize');
-
-const getFormattedColumnNames = (object) => Object.keys(snakeize(object)).join(',');
+const getFormattedColumnNames = (object) => Object.keys((object)).join(',');
 
 const getFormattedPlaceholders = (object) => Object.keys(object).map(() => '?').join(',');
 
-const getFormattedUpdateColumns = (object) => Object.keys(snakeize(object))
+const getFormattedUpdateColumns = (object) => Object.keys((object))
   .map((key) => `${key} = ?`)
   .join(', ');
 
