@@ -8,7 +8,7 @@ const {
   productId,
 } = require('../Mocks/product.mock');
 
-describe('PRODUCT SERVICE', function () {
+describe('PRODUCT SERVICE:', function () {
   afterEach(function () {
     sinon.restore();
   });

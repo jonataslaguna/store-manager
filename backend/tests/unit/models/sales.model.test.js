@@ -8,7 +8,7 @@ const {
   saleId,
 } = require('../Mocks/sales.mock');
 
-describe('SALES MODEL', function () {
+describe('SALES MODEL:', function () {
   afterEach(function () {
     sinon.restore();
   });

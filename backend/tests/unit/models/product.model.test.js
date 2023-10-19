@@ -9,7 +9,7 @@ const {
   productIdFromModel,
 } = require('../Mocks/product.mock');
 
-describe('PRODUCT MODEL', function () {
+describe('PRODUCT MODEL:', function () {
   afterEach(function () {
     sinon.restore();
   });
