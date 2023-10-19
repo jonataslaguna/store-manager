@@ -48,4 +48,13 @@ describe('PRODUCT SERVICE:', function () {
     expect(responseService.status).to.equal('CREATED');
     expect(responseService.data).to.deep.equal(productCreated);
   });
+  it('Test whether it does not add if the data is incorrect', async function () {
+    sinon.stub(productModel, 'insert').resolves(undefined);
+
+    const inputValue = { name: 'P' };
+
+    const responseService = await productService.insert(inputValue);
+    expect(responseService.status).to.equal('INVALID_VALUE');
+    expect(responseService.data.message).to.deep.equal('"name" length must be at least 3 characters long');
+  });
 });
