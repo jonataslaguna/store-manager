@@ -69,7 +69,7 @@ const productsInsertFromServiceSuccessful = {
 
 const productsInsertFromServiceInvalidValue = {
   status: 'INVALID_VALUE',
-  data: { message: '"name" length must be at least 3 characters long' },
+  data: { message: '"name" length must be at least 5 characters long' },
 };
   
 module.exports = {

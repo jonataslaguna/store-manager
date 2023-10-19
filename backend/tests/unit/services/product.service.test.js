@@ -55,6 +55,6 @@ describe('PRODUCT SERVICE:', function () {
 
     const responseService = await productService.insert(inputValue);
     expect(responseService.status).to.equal('INVALID_VALUE');
-    expect(responseService.data.message).to.deep.equal('"name" length must be at least 3 characters long');
+    expect(responseService.data.message).to.deep.equal('"name" length must be at least 5 characters long');
   });
 });
