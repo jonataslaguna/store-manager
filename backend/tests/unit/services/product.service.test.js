@@ -6,6 +6,7 @@ const {
   productsFromModel,
   productsFromDB,
   productId,
+  productCreated,
 } = require('../Mocks/product.mock');
 
 describe('PRODUCT SERVICE:', function () {
@@ -36,5 +37,15 @@ describe('PRODUCT SERVICE:', function () {
     const responseService = await productService.findById(inputValue);
     expect(responseService.status).to.equal('NOT_FOUND');
     expect(responseService.data.message).to.equal('Product not found');
+  });
+
+  it('Test function insert', async function () {
+    sinon.stub(productModel, 'insert').resolves(4);
+
+    const inputValue = { name: 'Playstation 5' };
+
+    const responseService = await productService.insert(inputValue);
+    expect(responseService.status).to.equal('CREATED');
+    expect(responseService.data).to.deep.equal(productCreated);
   });
 });

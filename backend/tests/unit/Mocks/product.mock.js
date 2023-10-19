@@ -56,6 +56,11 @@ const productFromServiceNotFound = {
 const insertIdFromModelAndFromDB = {
   insertId: 4,
 };
+
+const productCreated = {
+  id: 4,
+  name: 'Playstation 5',
+};
   
 module.exports = {
   productsFromModel,
@@ -66,4 +71,5 @@ module.exports = {
   productFromServiceSuccessful,
   productFromServiceNotFound,
   insertIdFromModelAndFromDB,
+  productCreated,
 };
