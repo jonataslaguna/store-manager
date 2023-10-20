@@ -10,19 +10,19 @@ const hasProperty = (array, property) => array
 const validateNewSale = (req, res, next) => {
   const sale = req.body;
 
-  const veryPropertyProductId = hasProperty(sale, 'productId');
+  const verifyPropertyProductId = hasProperty(sale, 'productId');
 
-  const veryPropertyQuantity = hasProperty(sale, 'quantity');
+  const verifyPropertyQuantity = hasProperty(sale, 'quantity');
 
   const propertyQuantity = validatePropertyQuantity(sale);
 
   const propertyProductId = validatePropertyProductId(sale);
 
-  if (!veryPropertyProductId || !propertyProductId) {
+  if (!verifyPropertyProductId || !propertyProductId) {
     return res.status(mapStatusHTTP('BAD_REQUEST')).json({ message: '"productId" is required' });
   }
 
-  if (!veryPropertyQuantity) {
+  if (!verifyPropertyQuantity) {
     return res.status(mapStatusHTTP('BAD_REQUEST')).json({ message: '"quantity" is required' });
   }
 
