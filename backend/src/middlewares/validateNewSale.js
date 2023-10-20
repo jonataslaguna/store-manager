@@ -1,4 +1,5 @@
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
+const { BAD_REQUEST, INVALID_VALUE } = require('../utils/statusHTTP');
 
 const validatePropertyProductId = (sale) => sale.every((property) => property.productId > 0);
 
@@ -19,15 +20,15 @@ const validateNewSale = (req, res, next) => {
   const propertyProductId = validatePropertyProductId(sale);
 
   if (!verifyPropertyProductId || !propertyProductId) {
-    return res.status(mapStatusHTTP('BAD_REQUEST')).json({ message: '"productId" is required' });
+    return res.status(mapStatusHTTP(BAD_REQUEST)).json({ message: '"productId" is required' });
   }
 
   if (!verifyPropertyQuantity) {
-    return res.status(mapStatusHTTP('BAD_REQUEST')).json({ message: '"quantity" is required' });
+    return res.status(mapStatusHTTP(BAD_REQUEST)).json({ message: '"quantity" is required' });
   }
 
   if (!propertyQuantity) {
-    return res.status(mapStatusHTTP('INVALID_VALUE'))
+    return res.status(mapStatusHTTP(INVALID_VALUE))
       .json({ message: '"quantity" must be greater than or equal to 1' });
   }
 

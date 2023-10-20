@@ -1,5 +1,6 @@
 const { productModel } = require('../models');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
+const { NOT_FOUND } = require('../utils/statusHTTP');
 
 const validateProductExists = async (req, res, next) => {
   const sale = req.body;
@@ -15,7 +16,7 @@ const validateProductExists = async (req, res, next) => {
   );
 
   if (productNotFound) {
-    return res.status(mapStatusHTTP('NOT_FOUND')).json({ message: 'Product not found' });
+    return res.status(mapStatusHTTP(NOT_FOUND)).json({ message: 'Product not found' });
   }
 
   next();
