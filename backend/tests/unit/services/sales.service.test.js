@@ -5,6 +5,8 @@ const { salesService } = require('../../../src/services');
 const { 
   salesFromDBAndSalesFromModel,
   saleId,
+  insertSales,
+  insertSalesSuccessful,
 } = require('../Mocks/sales.mock'); 
 
 describe('SALES SERVICE:', function () {
@@ -35,5 +37,14 @@ describe('SALES SERVICE:', function () {
     const responseService = await salesService.findById(inputValue);
     expect(responseService.status).to.equal('NOT_FOUND');
     expect(responseService.data.message).to.equal('Sale not found');
+  });
+
+  it('Test function insert', async function () {
+    sinon.stub(salesModel, 'insert').resolves(3);
+
+    const inputValue = insertSales;
+    const responseService = await salesService.insert(inputValue);
+    expect(responseService.status).to.equal('CREATED');
+    expect(responseService.data).to.deep.equal(insertSalesSuccessful.data);
   });
 });
