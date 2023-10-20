@@ -69,4 +69,36 @@ describe('PRODUCT SERVICE:', function () {
       message: '"name" is required',
     });
   });
+
+  it('Test function update', async function () {
+    const productModelStub = sinon.stub(productModel);
+
+    productModelStub.findById.onFirstCall().resolves(productId);
+    productModelStub.update.resolves(null);
+    productModelStub.findById.onSecondCall().resolves({
+      id: 2,
+      name: 'Playstation 5',
+    });
+
+    const productInput = { name: 'Playstation 5' };
+    const productIdInput = 2;
+
+    const responseService = await productService.update(productInput, productIdInput);
+    expect(responseService.status).to.equal('SUCCESSFUL');
+    expect(responseService.data).to.deep.equal({
+      id: 2,
+      name: 'Playstation 5',
+    });
+  });
+
+  it('Should return an error if the product does not exist', async function () {
+    sinon.stub(productModel, 'findById').resolves(undefined);
+
+    const productInput = { name: 'Playstation 4' };
+    const productIdInput = 999;
+
+    const responseService = await productService.update(productInput, productIdInput);
+    expect(responseService.status).to.equal('NOT_FOUND');
+    expect(responseService.data.message).to.deep.equal('Product not found');
+  });
 });

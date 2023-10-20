@@ -28,15 +28,17 @@ const insert = async (product) => {
 };
 
 const update = async (product, productId) => {
-  await productModel.update(product, productId);
-
   const findProduct = await productModel.findById(productId);
-
+  
   if (!findProduct) {
     return { status: NOT_FOUND, data: { message: 'Product not found' } };
   }
 
-  const productUpdated = { id: productId, ...findProduct };
+  await productModel.update(product, productId);
+
+  const findProdctUpdated = await productModel.findById(productId);
+  
+  const productUpdated = { id: productId, ...findProdctUpdated };
 
   return { status: SUCCESSFUL, data: productUpdated };
 };
