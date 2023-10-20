@@ -14,6 +14,7 @@ const {
   saleId, 
   saleFromServiceSuccessful,
   saleFromServiceNotFound,
+  insertSalesSuccessful,
 } = require('../Mocks/sales.mock');
 
 describe('SALES CONTROLLER:', function () {
@@ -63,5 +64,32 @@ describe('SALES CONTROLLER:', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(saleFromServiceNotFound.data);
+  });
+
+  it('Test function insertSale', async function () {
+    sinon.stub(salesService, 'insert').resolves(insertSalesSuccessful);
+
+    const req = {
+      body: [
+        {
+          productId: 1,
+          quantity: 1,
+        },
+        {
+          productId: 2,
+          quantity: 5,
+        },
+      ],
+    };
+  
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await salesController.insertSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(insertSalesSuccessful.data);
   });
 });
