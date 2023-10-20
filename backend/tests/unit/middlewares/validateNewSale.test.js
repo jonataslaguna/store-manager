@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { validateNewSale } = require('../../../src/middlewares/validateNewSale'); 
 
 describe('MIDDLEWARE VALIDATE NEW SALE:', function () {
-  it('should return an error if "productId" is missing', function () {
+  it('Should return an error if "productId" is missing', function () {
     const req = {
       body: [{ quantity: 5 }],
     };
@@ -19,7 +19,7 @@ describe('MIDDLEWARE VALIDATE NEW SALE:', function () {
     validateNewSale(req, res, next);
   });
 
-  it('should return an error if "quantity" is missing', function () {
+  it('Should return an error if "quantity" is missing', function () {
     const req = {
       body: [{ productId: 3 }],
     };
@@ -36,7 +36,7 @@ describe('MIDDLEWARE VALIDATE NEW SALE:', function () {
     validateNewSale(req, res, next);
   });
 
-  it('should return an error if "quantity" is less than 1', function () {
+  it('Should return an error if "quantity" is less than 1', function () {
     const req = {
       body: [{ productId: 3, quantity: 0 }],
     };
@@ -53,7 +53,7 @@ describe('MIDDLEWARE VALIDATE NEW SALE:', function () {
     validateNewSale(req, res, next);
   });
 
-  it('should return an error if "productId" is less than 1', function () {
+  it('Should return an error if "productId" is less than 1', function () {
     const req = {
       body: [{ productId: 0, quantity: 1 }],
     };
