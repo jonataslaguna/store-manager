@@ -1,10 +1,17 @@
 const router = require('express').Router();
 const { salesController } = require('../controllers');
+const { validateNewSale } = require('../middlewares/validateNewSale');
+const { validateProductExists } = require('../middlewares/validateProductExists');
 
 router.get('/', salesController.findAll);
 
 router.get('/:id', salesController.findById);
 
-router.post('/', salesController.insertSale);
+router.post(
+  '/', 
+  validateNewSale, 
+  validateProductExists, 
+  salesController.insertSale,
+);
 
 module.exports = router;
