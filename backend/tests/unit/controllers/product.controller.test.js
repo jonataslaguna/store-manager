@@ -100,4 +100,38 @@ describe('PRODUCT CONTROLLER:', function () {
     expect(res.status).to.have.been.calledWith(422);
     expect(res.json).to.have.been.calledWith(productsInsertFromServiceInvalidValue.data);
   });
+
+  it('Test updateProduct', async function () {
+    sinon.stub(productService, 'update').resolves(productFromServiceSuccessful);
+
+    const inputValue = { name: 'Traje de encolhimento' };
+
+    const req = { params: { id: 2 }, body: inputValue };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await productController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(productFromServiceSuccessful.data);
+  });
+
+  it('Should return an error if the product does not exist', async function () {
+    sinon.stub(productService, 'update').resolves(productFromServiceNotFound);
+
+    const inputValue = { name: 'Traje de encolhimento' };
+
+    const req = { params: { id: 9999 }, body: inputValue };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await productController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith(productFromServiceNotFound.data);
+  });
 });
