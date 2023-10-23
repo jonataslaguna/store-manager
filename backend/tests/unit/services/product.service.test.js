@@ -91,13 +91,23 @@ describe('PRODUCT SERVICE:', function () {
     });
   });
 
-  it('Should return an error if the product does not exist', async function () {
+  it('The function update should return an error if the product does not exist', async function () {
     sinon.stub(productModel, 'findById').resolves(undefined);
 
     const productInput = { name: 'Playstation 4' };
     const productIdInput = 999;
 
     const responseService = await productService.update(productInput, productIdInput);
+    expect(responseService.status).to.equal('NOT_FOUND');
+    expect(responseService.data.message).to.deep.equal('Product not found');
+  });
+
+  it('The remove function should not call the model if the product does not exist', async function () {
+    sinon.stub(productModel, 'findById').resolves(undefined);
+
+    const productIdInput = 999;
+
+    const responseService = await productService.remove(productIdInput);
     expect(responseService.status).to.equal('NOT_FOUND');
     expect(responseService.data.message).to.deep.equal('Product not found');
   });
