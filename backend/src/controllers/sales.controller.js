@@ -21,9 +21,11 @@ const insertSale = async (req, res) => {
 
 const removeSale = async (req, res) => {
   const { id } = req.params;
-  const response = await salesService.remove(id);
+  const serviceResponse = await salesService.remove(id);
 
-  if (response) return res.status(404).json(response.data);
+  if (serviceResponse) {
+    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data); 
+  }
 
   return res.status(204).end();
 };
