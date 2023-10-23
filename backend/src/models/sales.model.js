@@ -30,20 +30,19 @@ const insert = async (sale) => {
   const saleQuery = 'INSERT INTO sales (date) VALUES (NOW())';
   const [{ insertId: saleId }] = await connection.execute(saleQuery);
 
-  sale.forEach(async (item) => {
+  const promises = sale.map(async (item) => {
     const { productId, quantity } = item;
     const productQuery = `INSERT INTO 
     sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)`;
     await connection.execute(productQuery, [saleId, productId, quantity]);
   });
 
+  await Promise.all(promises);
+
   return saleId;
 };
 
 const remove = async (saleId) => {
-  const deleteSalesProductsQuery = 'DELETE FROM sales_products WHERE sale_id = ?';
-  await connection.execute(deleteSalesProductsQuery, [saleId]);
-
   const deleteSaleQuery = 'DELETE FROM sales WHERE id = ?';
   await connection.execute(deleteSaleQuery, [saleId]);
 };
