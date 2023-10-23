@@ -1,8 +1,7 @@
 const { productModel } = require('../models');
 const { validateNewProduct } = require('./validations/validationsInputValues');
 const { SUCCESSFUL, NOT_FOUND, CREATED } = require('../utils/statusHTTP');
-
-const response = (resposeStatus, responseData) => ({ status: resposeStatus, data: responseData });
+const response = require('../utils/responseMessageService');
 
 const findAll = async () => {
   const product = await productModel.findAll();
