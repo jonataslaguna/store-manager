@@ -51,4 +51,30 @@ describe('PRODUCT MODEL:', function () {
     expect(products).to.be.an('number');
     expect(products).to.be.deep.equal(insertIdFromModelAndFromDB.insertId);
   });
+
+  it('Test function update', async function () {
+    sinon.stub(connection, 'execute').resolves(null);
+
+    const productIdInputValue = 1;
+    const product = { name: 'Novo Produto', price: 10 };
+    const expectedQuery = 'UPDATE products SET name = ?, price = ? WHERE id = ?';
+    const expectedValues = ['Novo Produto', 10, productIdInputValue];
+  
+    await productModel.update(product, productIdInputValue);
+  
+    expect(connection.execute.firstCall.args[0]).to.equal(expectedQuery);
+    expect(connection.execute.firstCall.args[1]).to.deep.equal(expectedValues);
+  });
+
+  it('Must call the execute function with the correct parameters', async function () {
+    sinon.stub(connection, 'execute').resolves(null);
+    const productIdInput = 1;
+    const expectedQuery = 'DELETE FROM products WHERE id = ?';
+    const expectedValues = [productIdInput];
+
+    await productModel.remove(productIdInput);
+
+    expect(connection.execute.firstCall.args[0]).to.equal(expectedQuery);
+    expect(connection.execute.firstCall.args[1]).to.deep.equal(expectedValues);
+  });
 });
