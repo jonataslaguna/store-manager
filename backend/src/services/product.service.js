@@ -2,36 +2,38 @@ const { productModel } = require('../models');
 const { validateNewProduct } = require('./validations/validationsInputValues');
 const { SUCCESSFUL, NOT_FOUND, CREATED } = require('../utils/statusHTTP');
 
+const response = (resposeStatus, responseData) => ({ status: resposeStatus, data: responseData });
+
 const findAll = async () => {
   const product = await productModel.findAll();
-  return { status: SUCCESSFUL, data: product };
+  return response(SUCCESSFUL, product);
 };
 
 const findById = async (productId) => {
   const product = await productModel.findById(productId);
   if (!product) {
-    return { status: NOT_FOUND, data: { message: 'Product not found' } };
+    return response(NOT_FOUND, { message: 'Product not found' });
   }
-  return { status: SUCCESSFUL, data: product };
+  return response(SUCCESSFUL, product);
 };
 
 const insert = async (product) => {
   const error = validateNewProduct(product);
 
-  if (error) return { status: error.status, data: { message: error.message } };
-
+  if (error) return response(error.status, { message: error.message });
+  
   const productId = await productModel.insert(product);
 
   const newProduct = { id: productId, ...product };
 
-  return { status: CREATED, data: newProduct };
+  return response(CREATED, newProduct);
 };
 
 const update = async (product, productId) => {
   const findProduct = await productModel.findById(productId);
   
   if (!findProduct) {
-    return { status: NOT_FOUND, data: { message: 'Product not found' } };
+    return response(NOT_FOUND, { message: 'Product not found' });
   }
 
   await productModel.update(product, productId);
@@ -40,7 +42,17 @@ const update = async (product, productId) => {
   
   const productUpdated = { id: productId, ...findProdctUpdated };
 
-  return { status: SUCCESSFUL, data: productUpdated };
+  return response(SUCCESSFUL, productUpdated);
+};
+
+const remove = async (productId) => {
+  const findProduct = await productModel.findById(productId);
+
+  if (!findProduct) {
+    return response(NOT_FOUND, { message: 'Product not found' });
+  }
+
+  await productModel.remove(productId);
 };
 
 module.exports = {
@@ -48,4 +60,5 @@ module.exports = {
   findById,
   insert,
   update,
+  remove,
 };

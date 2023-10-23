@@ -14,4 +14,6 @@ router.put(
   productController.updateProduct,
 );
 
+router.delete('/:id', productController.removeProduct);
+
 module.exports = router;
