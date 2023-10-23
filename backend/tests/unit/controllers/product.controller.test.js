@@ -118,7 +118,7 @@ describe('PRODUCT CONTROLLER:', function () {
     expect(res.json).to.have.been.calledWith(productFromServiceSuccessful.data);
   });
 
-  it('Should return an error if the product does not exist', async function () {
+  it('The function update should return an error if the product does not exist', async function () {
     sinon.stub(productService, 'update').resolves(productFromServiceNotFound);
 
     const inputValue = { name: 'Traje de encolhimento' };
@@ -130,6 +130,36 @@ describe('PRODUCT CONTROLLER:', function () {
     };
   
     await productController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith(productFromServiceNotFound.data);
+  });
+
+  it('Test function remove', async function () {
+    sinon.stub(productService, 'remove').resolves(null);
+
+    const req = { params: { id: 2 }, body: {} };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+      end: sinon.stub(),
+    };
+  
+    await productController.removeProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('The function remove should return an error if the product does not exist', async function () {
+    sinon.stub(productService, 'update').resolves(productFromServiceNotFound);
+
+    const req = { params: { id: 9999 }, body: {} };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await productController.removeProduct(req, res);
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(productFromServiceNotFound.data);
