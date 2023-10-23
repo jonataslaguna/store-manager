@@ -56,9 +56,9 @@ describe('PRODUCT MODEL:', function () {
     sinon.stub(connection, 'execute').resolves(null);
 
     const productIdInputValue = 1;
-    const product = { name: 'Novo Produto', price: 10 };
-    const expectedQuery = 'UPDATE products SET name = ?, price = ? WHERE id = ?';
-    const expectedValues = ['Novo Produto', 10, productIdInputValue];
+    const product = { name: 'New Product' };
+    const expectedQuery = 'UPDATE products SET name = ? WHERE id = ?';
+    const expectedValues = ['New Product', productIdInputValue];
   
     await productModel.update(product, productIdInputValue);
   
