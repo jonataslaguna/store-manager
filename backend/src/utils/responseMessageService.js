@@ -1,3 +1,3 @@
-const response = (resposeStatus, responseData) => ({ status: resposeStatus, data: responseData });
+const response = (responseStatus, responseData) => ({ status: responseStatus, data: responseData });
 
 module.exports = response;
