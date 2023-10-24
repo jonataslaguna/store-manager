@@ -47,4 +47,14 @@ describe('SALES SERVICE:', function () {
     expect(responseService.status).to.equal('CREATED');
     expect(responseService.data).to.deep.equal(insertSalesSuccessful.data);
   });
+
+  it('The remove function should not call the model if the product does not exist', async function () {
+    sinon.stub(salesModel, 'findById').resolves([]);
+
+    const saletIdInput = 999;
+
+    const responseService = await salesService.remove(saletIdInput);
+    expect(responseService.status).to.equal('NOT_FOUND');
+    expect(responseService.data.message).to.deep.equal('Sale not found');
+  });
 });

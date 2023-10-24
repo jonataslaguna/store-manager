@@ -151,7 +151,7 @@ describe('PRODUCT CONTROLLER:', function () {
   });
 
   it('The function remove should return an error if the product does not exist', async function () {
-    sinon.stub(productService, 'update').resolves(productFromServiceNotFound);
+    sinon.stub(productService, 'remove').resolves(productFromServiceNotFound);
 
     const req = { params: { id: 9999 }, body: {} };
     const res = {
