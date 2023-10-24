@@ -92,4 +92,34 @@ describe('SALES CONTROLLER:', function () {
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(insertSalesSuccessful.data);
   });
+
+  it('Test function removeSale', async function () {
+    sinon.stub(salesService, 'remove').resolves(null);
+
+    const req = { params: { id: 2 }, body: { } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+      end: sinon.stub(),
+    };
+
+    await salesController.removeSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('The function removeSale should return an error if the product does not exist', async function () {
+    sinon.stub(salesService, 'remove').resolves(saleFromServiceNotFound);
+
+    const req = { params: { id: 9999 }, body: {} };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+  
+    await salesController.removeSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith(saleFromServiceNotFound.data);
+  });
 });
