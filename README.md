@@ -1,4 +1,4 @@
-# Store Maneger
+# Store Manager
 
 API RESTful utilizando a arquitetura em camadas. Essa API é um sistema de gerenciamento de vendas em que é possível criar visualizar, deletar e atualizar produtos e vendas.
 
