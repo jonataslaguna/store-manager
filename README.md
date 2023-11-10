@@ -103,7 +103,7 @@ npm run dev:local
   - Endpoint: `DELETE /sales/:id`
   - Remove uma venda específica com base no ID fornecido.
 
-> <strong>Observação:</strong> Na raiz do projeto, você encontrará um arquivo Thunder Client (thunder-collection-store-maneger.json) que pode ser importado no Thunder Client para facilitar as requisições.
+> <strong>Observação:</strong> Na raiz do projeto, você encontrará um arquivo Thunder Client (thunder-collection-store-manager.json) que pode ser importado no Thunder Client para facilitar as requisições.
 
 ## Contribuição
 
